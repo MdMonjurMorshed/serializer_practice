@@ -12,6 +12,17 @@ class FirstModel(models.Model):
 
     def __str__(self) -> str:
         return self.title
+class Author(models.Model):
+    uuid=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name=models.CharField(max_length=128,blank=False,null=False)
+    age=models.IntegerField()
 
-
+class Publisher(models.Model):
+    uuid=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name=models.CharField(max_length=128,blank=False,null=False)    
+class Book(models.Model):
+    uuid=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title=models.CharField(max_length=128,blank=False,null=False)
+    author=models.ForeignKey(Author,on_delete=models.CASCADE,related_name="book_author")
+    publisher=models.ForeignKey(Publisher,on_delete=models.CASCADE,related_name='books',null=True)
     
